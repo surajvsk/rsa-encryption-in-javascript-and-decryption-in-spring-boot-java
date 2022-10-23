@@ -1,0 +1,44 @@
+package com.dynamite.crud;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+@RestController
+class RestControllerEx {
+	
+	
+	  String PrivateKey ="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";
+	
+    @RequestMapping(value={"/decrypt"}, method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Users decrypt(@RequestBody Users credentials) throws InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
+       System.out.println("DECRIPT:::::::::>"+credentials + PrivateKey);
+    	
+    	String plainTextPass = RSAUtil.decrypt(credentials.getPassword(), PrivateKey);
+    	String plainTextUsername = RSAUtil.decrypt(credentials.getUsername(), PrivateKey);
+    	
+    	System.out.println("plainTextUsername:::::::::::::::::::>>"+plainTextUsername);
+        System.out.println("plainTextPass:::::::::::::::::::>>"+plainTextPass);
+        
+        credentials.setUsername(plainTextUsername);
+        credentials.setPassword(plainTextPass);
+        return credentials;
+    }
+}
