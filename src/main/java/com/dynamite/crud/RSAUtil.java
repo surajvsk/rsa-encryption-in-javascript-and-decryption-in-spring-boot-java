@@ -70,7 +70,7 @@ public class RSAUtil {
 
     public static void main(String[] args) throws IllegalBlockSizeException, InvalidKeyException, NoSuchPaddingException, BadPaddingException {
         try {
-            String encryptedString = Base64.getEncoder().encodeToString(encrypt("Dhiraj is the author", publicKey));
+            String encryptedString = Base64.getEncoder().encodeToString(encrypt("Suraj is the author", publicKey));
             System.out.println(encryptedString);
             String decryptedString = RSAUtil.decrypt(encryptedString, privateKey);
             System.out.println(decryptedString);
